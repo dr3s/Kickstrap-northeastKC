@@ -20,8 +20,6 @@ script#caching {content: @importedJS;}
   However, only LESS writeup which effects the whole of Kickstrap--all themes--should be directly written here.
   
   */
-  
-@import "../extras/animate/animate.less"; 
 
 //---------------------------
   
@@ -392,3 +390,8 @@ footer#footer {
 
 // Bring in the main settings
 @import "../../settings.less";
+
+// Process add-ons from settings.
+#addOns {
+	content: @addOns;
+}
