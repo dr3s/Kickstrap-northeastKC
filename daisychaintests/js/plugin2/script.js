@@ -1,1 +1,0 @@
-console.log('Plugin 2 loaded successfully');

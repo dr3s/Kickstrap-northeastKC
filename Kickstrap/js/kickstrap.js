@@ -94,6 +94,22 @@
 			}
 		}
 		
+		function loadScript(url, callback) {
+		    // adding the script tag to the head as suggested before
+		   var head = document.getElementsByTagName('body')[0];
+		   var script = document.createElement('script');
+		   script.type = 'text/javascript';
+		   script.src = url;
+		
+		   // then bind the event to the callback function 
+		   // there are several events for cross browser compatibility
+		   script.onreadystatechange = callback;
+		   script.onload = callback;
+		
+		   // fire the loading
+		   head.appendChild(script);
+		}
+		
 		function pluginDepWriter(configArray, pluginName) {
 			// We don't need an array in an array.
 			configArray = configArray[0];	
@@ -105,7 +121,7 @@
 				var depSrc = rootDir + addOnLocation + pluginName + "/" + depName;
 				switch(depSuffix) {
 					case ".js":
-					$('body').append('<script type="text/javascript" src="' + depSrc + '"></script>');
+					loadScript(depSrc);
 					break;
 					
 					case "css":
