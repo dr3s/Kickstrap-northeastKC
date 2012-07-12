@@ -1,6 +1,6 @@
-	/* function appendMagic(appendee) {
-		document.write(stripslashes($(appendee).css('content')));
-		function stripslashes(str) {
+	/* 
+		document.write(formatAppendee($(newAppendee).css('content')));
+		function formatAppendee(str) {
 			str=str.replace(/\\'/g,'\'');
 			str=str.replace(/\\"/g,'"');
 			str=str.replace(/\\0/g,'\0');
@@ -8,7 +8,7 @@
 			str=str.substring(1,str.length-1);
 			return str;
 		}
-	} */
+	*/
 	
 	function appendMagic(rootDir, newAppendee) {
 	
@@ -73,6 +73,17 @@
 				
 				// Open the add-on's config file to see what we need to import.
 				getKsFile(addOnArray[i]);
+			}
+		}
+		else {
+			document.write(formatAppendee($(newAppendee).css('content')));
+			function formatAppendee(str) {
+				str=str.replace(/\\'/g,'\'');
+				str=str.replace(/\\"/g,'"');
+				str=str.replace(/\\0/g,'\0');
+				str=str.replace(/\\\\/g,'\\');
+				str=str.substring(1,str.length-1);
+				return str;
 			}
 		}
 		
