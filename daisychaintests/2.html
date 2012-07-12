@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Daisy Chained JS from CSS</title>
+	<style>
+		#one {
+			content:"addons: plugin1, plugin2";
+		}
+		#two {
+			content:"<script class=\"extras\" id=\"three\" type=\"text/javascript\">appendMagic();</script>";
+		}
+		#three {
+			content:"a";
+		}
+	</style>
+</head>
+<body>
+	<p>This is a demo of daisy-chaining JavaScript using the CSS "Content" attribute.</p>
+	<script type="text/javascript" src="../Kickstrap/js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" class="extras" id="one">
+	
+	appendMagic();
+
+	function appendMagic() {
+		
+		// Set up some variables
+		var scriptId = $('.extras').last().attr('id');
+		var appendee = '#' + scriptId;
+		var addOnScript = false;
+		console.log(appendee);
+		
+		// Functions we'll need later
+		function stripslashes(str) {
+			str=str.replace(/\\'/g,'\'');
+			str=str.replace(/\\"/g,'"');
+			str=str.replace(/\\0/g,'\0');
+			str=str.replace(/\\\\/g,'\\');
+			str=str.substring(1,str.length-1);
+			return str;
+		}
+		// CSV splitter thanks to http://www.greywyvern.com/?post=258
+		String.prototype.splitCSV = function(sep) {
+		  for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
+		  	foo[x] = foo[x].replace(/ /g,''); // Modified to remove spaces from string too.
+		    if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {
+		      if ((tl = foo[x].replace(/^\s+"/, '"')).length > 1 && tl.charAt(0) == '"') {
+		        foo[x] = foo[x].replace(/^\s*"|"\s*$/g, '').replace(/""/g, '"');
+		      } else if (x) {
+		        foo.splice(x - 1, 2, [foo[x - 1], foo[x]].join(sep));
+		      } else foo = foo.shift().split(sep).concat(foo);
+		    } else foo[x].replace(/""/g, '"');
+		  } return foo;
+		};
+		
+		// Get the formatted content string
+		var contentString = stripslashes($(appendee).css('content'));
+		
+		// Determine if this is the first list of addons
+		if (contentString.substr(0, 7)=="addons:") {addOnScript = true;}
+		console.log(addOnScript);
+		
+		if (addOnScript) {
+			// Trim the "addons: "
+			contentString = contentString.substr(8, contentString.length);
+			var addOnArray = contentString.splitCSV();
+			console.log(addOnArray);
+			for (i=0;i<addOnArray.length;i++) {
+				console.log('Item #'+i+' is '+addOnArray[i]);
+			}
+		}
+		
+		// Just paste the content string to the DOM
+		document.write(contentString);
+		
+	}
+	
+	</script>
+</body>
+</html>
