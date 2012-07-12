@@ -161,9 +161,10 @@
   <!-- end scripts -->
   
   <!-- Kickstrap Parts, must be in this order. -->
-  <script id="console" type="text/javascript">appendMagic('#console');</script>
-  <script id="caching" type="text/javascript">appendMagic('#caching');</script>
-  <script id="console-tools" type="text/javascript">appendMagic('#console-tools');</script>
+  <script type="text/javascript" id="addOns">appendMagic('');</script>
+  <script id="console" type="text/javascript">appendMagic(null, '#console');</script>
+  <script id="caching" type="text/javascript">appendMagic(null, '#caching');</script>
+  <script id="console-tools" type="text/javascript">appendMagic(null, '#console-tools');</script>
 
   <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
        mathiasbynens.be/notes/async-analytics-snippet -->
