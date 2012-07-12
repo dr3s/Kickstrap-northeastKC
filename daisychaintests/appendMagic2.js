@@ -53,12 +53,9 @@ function appendMagic() {
 	
 	// Get the formatted content string
 	var contentString = stripslashes($('#addOns').css('content'));
-	console.log(contentString);
 	
 	var addOnArray = contentString.splitCSV();
-	console.log(addOnArray);
 	for (i=0;i<addOnArray.length;i++) {
-		console.log('Item #'+i+' is '+addOnArray[i]);
 		
 		// Open the add-on's config file to see what we need to import.
 		getKsFile(addOnArray[i]);
