@@ -4,8 +4,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Daisy Chained JS from CSS</title>
 	<style>
-		#one {
-			content:"addons: plugin1, plugin2";
+		#addOns {
+			content:"plugin1, plugin2";
 		}
 	</style>
 </head>
@@ -13,6 +13,6 @@
 	<p>This is a demo of daisy-chaining JavaScript using the CSS "Content" attribute.</p>
 	<script type="text/javascript" src="../Kickstrap/js/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="appendMagic.js"></script>
-	<script type="text/javascript" class="extras" id="one">appendMagic();</script>
+	<script type="text/javascript" id="addOns">appendMagic();</script>
 </body>
 </html>

@@ -1,10 +1,6 @@
 function appendMagic() {
 	
 	// Set up some variables
-	var scriptId = $('.extras').last().attr('id');
-	var appendee = '#' + scriptId;
-	var addOnScript = false;
-	console.log(appendee);
 	
 	// Functions we'll need later
 	function stripslashes(str) {
@@ -30,21 +26,13 @@ function appendMagic() {
 	};
 	
 	// Get the formatted content string
-	var contentString = stripslashes($(appendee).css('content'));
+	var contentString = stripslashes($('#addOns').css('content'));
 	
-	// Determine if this is the first list of addons
-	if (contentString.substr(0, 7)=="addons:") {addOnScript = true;}
-	console.log(addOnScript);
-	
-	if (addOnScript) {
-		// Trim the "addons: "
-		contentString = contentString.substr(8, contentString.length);
-		var addOnArray = contentString.splitCSV();
-		console.log(addOnArray);
-		for (i=0;i<addOnArray.length;i++) {
-			console.log('Item #'+i+' is '+addOnArray[i]);
-			document.write('<script type="text/javascript" src="js/' + addOnArray[i] + '/script.js"></script>');
-		}
+	var addOnArray = contentString.splitCSV();
+	console.log(addOnArray);
+	for (i=0;i<addOnArray.length;i++) {
+		console.log('Item #'+i+' is '+addOnArray[i]);
+		document.write('<script type="text/javascript" src="js/' + addOnArray[i] + '/script.js"></script>');
 	}
 	
 	// Just paste the content string to the DOM
