@@ -4,7 +4,7 @@
 		location.reload(true);
 	}
 	
-	function consoleLog(msg, msgType) {
+	function consoleLog(msg, msgType) { 
 		if(typeof window.consoleLogger == 'function') {
 			consoleLogger(msg, msgType);
 		}
@@ -67,6 +67,10 @@
 		};
 		
 		if (!newAppendee) {
+		
+			// Write the appendMagic script elements for console, console tools, etc.
+			document.write('<script id="console" type="text/javascript">appendMagic(null, \'#console\');</script><script id="caching" type="text/javascript">appendMagic(null, \'#caching\');</script><script id="console-tools" type="text/javascript">appendMagic(null, \'#console-tools\');</script>');
+		
 			// Get the formatted content string
 			var contentString = stripslashes($('#addOns').css('content'));
 			
@@ -76,9 +80,6 @@
 				// Open the add-on's config file to see what we need to import.
 				getKsFile(addOnArray[i]);
 			}
-			
-			// Write the appendMagic script elements for console, console tools, etc.
-			document.write('<script id="console" type="text/javascript">appendMagic(null, \'#console\');</script><script id="caching" type="text/javascript">appendMagic(null, \'#caching\');</script><script id="console-tools" type="text/javascript">appendMagic(null, \'#console-tools\');</script>');
 			
 		}
 		else {
