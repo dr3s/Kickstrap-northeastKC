@@ -1,15 +1,15 @@
-	/* 
-		document.write(formatAppendee($(newAppendee).css('content')));
-		function formatAppendee(str) {
-			str=str.replace(/\\'/g,'\'');
-			str=str.replace(/\\"/g,'"');
-			str=str.replace(/\\0/g,'\0');
-			str=str.replace(/\\\\/g,'\\');
-			str=str.substring(1,str.length-1);
-			return str;
-		}
-	*/
+	function clearCache() {
+		localStorage.clear() // My name sounds nicer. :)
+		console.log('Cache has been cleared. Reloading...');
+		location.reload(true);
+	}
 	
+	function consoleLog(msg, msgType) {
+		if(typeof window.consoleLogger == 'function') {
+			consoleLogger(msg, msgType);
+		}
+	}
+
 	function appendMagic(rootDir, newAppendee) {
 	
 		// Variables
@@ -41,6 +41,7 @@
 		}
 	  function getKsFile(pluginName) {
 	  	if(!(pluginName == "")) { //User may leave a trailing comma
+	  	  consoleLog('Kickstrap: Loading add-on "' + pluginName + '"');
 		  	var ksURL = addOnLocation + pluginName + "/config.ks";
 				$.ajax({
 					type: "GET",
@@ -51,6 +52,7 @@
 			}
 	  }
 		// Modified version of CSV splitter thanks to http://www.greywyvern.com/?post=258
+		// Apparently this is not very IE compatible. http://stackoverflow.com/questions/5053292/javascript-how-to-create-global-functions-variables
 		String.prototype.splitCSV = function(sep) {
 		  for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
 		  	foo[x] = foo[x].replace(/ /g,''); // Modified to remove spaces from string too.
@@ -74,6 +76,10 @@
 				// Open the add-on's config file to see what we need to import.
 				getKsFile(addOnArray[i]);
 			}
+			
+			// Write the appendMagic script elements for console, console tools, etc.
+			document.write('<script id="console" type="text/javascript">appendMagic(null, \'#console\');</script><script id="caching" type="text/javascript">appendMagic(null, \'#caching\');</script><script id="console-tools" type="text/javascript">appendMagic(null, \'#console-tools\');</script>');
+			
 		}
 		else {
 			document.write(formatAppendee($(newAppendee).css('content')));
@@ -108,17 +114,5 @@
 			}
 		}
 		
-	}
-	
-	function clearCache() {
-		localStorage.clear() // My name sounds nicer. :)
-		console.log('Cache has been cleared. Reloading...');
-		location.reload(true);
-	}
-	
-	function consoleLog(msg, msgType) {
-		if(typeof window.consoleLogger == 'function') {
-			consoleLogger(msg, msgType);
-		}
 	}
 
