@@ -403,11 +403,16 @@
   <script>window.jQuery || document.write('<script src="Kickstrap/js/jquery-1.7.1.min.js"><\/script>')</script>
   
   <!-- scripts concatenated and minified via build script -->
-	<script type="text/javascript" src="Kickstrap/js/kickstrap.js"></script>
+	<script id="addOns" src="Kickstrap/js/kickstrap.js"></script>
   <!-- end scripts -->
   
-  <script type="text/javascript" id="addOns">appendMagic();</script> <!-- Runs plugins -->
-  <script>$.kickstrap(function() { /* Write custom JS here. */ });</script>
+  <!--script type="text/javascript" id="addOns">appendMagic();</script--> <!-- Runs plugins -->
+  <script>$.kickstrap({
+			kickstrapIsHere: "/",
+			customJS: function(){
+				
+			}
+  });</script>
 
   <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
        mathiasbynens.be/notes/async-analytics-snippet -->

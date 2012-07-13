@@ -5,14 +5,16 @@ var rootDir, addOnLocation;
 	 $.kickstrap = function(options) { 
 	 
 		var defaults = {  
-			ksDir: "/",
-			thisDir: "/",
+			kickstrapIsHere: "/",
+			thisFileIsHere: "/",
 			customJS: function(){}
 	  };  
 	  var options = $.extend(defaults, options); 
-	 
-	  consoleLog('ksDir is ' + options.ksDir);
-	  consoleLog('thisDir is ' + options.thisDir);
+	  var ksDir = options.kickstrapIsHere;
+	  consoleLog('kickstrapIsHere is ' + ksDir);
+	  consoleLog('thisFileIsHere is ' + rootDir);
+	  
+	  appendMagic(ksDir);
 	  
 	  // Wait for all plugins to be loaded
 	 	$(window).load(function() {
@@ -23,7 +25,7 @@ var rootDir, addOnLocation;
 	})(jQuery);
 	
 	function clearCache() {
-		localStorage.clear() // My name sounds nicer. :)
+		localStorage.clear() // This is the part that actually clears the cache.
 		console.log('Cache has been cleared. Reloading...');
 		location.reload(true);
 	}
