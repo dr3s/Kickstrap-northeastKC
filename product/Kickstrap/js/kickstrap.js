@@ -41,7 +41,7 @@
 		}
 	  function getKsFile(pluginName) {
 	  	if(!(pluginName == "")) { //User may leave a trailing comma
-	  	  consoleLog('Kickstrap: Loading add-on "' + pluginName + '"');
+	  	  consoleLog('Loading add-on "' + pluginName + '"');
 		  	var ksURL = addOnLocation + pluginName + "/config.ks";
 				$.ajax({
 					type: "GET",

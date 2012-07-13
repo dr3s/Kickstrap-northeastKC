@@ -797,16 +797,6 @@ less.Parser = function Parser(env) {
                     }
                 },
 
-				// A Kickstrap constant
-				// We get to prune these from the LESS and do whatever we want with them.
-				kickstrap: function () {
-                    var name, index = i;
-
-                    if (input.charAt(i) === 'ø' && (name = $(/^@@?[\w-]+/))) {
-                        return new(tree.Kickstrap)(name, index, env.filename);
-                    }
-                },
-
                 //
                 // A Hexadecimal color
                 //

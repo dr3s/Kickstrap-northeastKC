@@ -41,7 +41,7 @@
 		}
 	  function getKsFile(pluginName) {
 	  	if(!(pluginName == "")) { //User may leave a trailing comma
-	  	  consoleLog('Kickstrap: Loading add-on "' + pluginName + '"');
+	  	  consoleLog('Loading add-on "' + pluginName + '"');
 		  	var ksURL = addOnLocation + pluginName + "/config.ks";
 				$.ajax({
 					type: "GET",
@@ -75,7 +75,7 @@
 			var contentString = stripslashes($('#addOns').css('content'));
 			
 			var addOnArray = contentString.splitCSV();
-			for (i=0;i<addOnArray.length || function(){ setKickstrap(); return false;}();i++) {
+			for (i=0;i<addOnArray.length || function(){ consoleLog('All addons loaded'); return false;}();i++) {
 				
 				// Open the add-on's config file to see what we need to import.
 				getKsFile(addOnArray[i]);
@@ -132,14 +132,14 @@
 			}
 			
 		}
-		function setKickstrap() {
-		// Once all the plugins have loaded and had time to take off their shoes and have a martini, look at the user's custom stuff.
-			$(window).load(function() {
-				if(typeof window.kickstrap == 'function') {
-					// function exists, so we can now call it
-					kickstrap();
-				}
-			});
-		}
+		
+		(function($){  
+		 $.kickstrap = function(f,i) { // f = function, i = initiate 
+		 	$(window).load(function() {
+ 				var customFunction = f;
+ 				f(); 
+		 	}); 
+		 };  
+		})(jQuery);
 	}
 
