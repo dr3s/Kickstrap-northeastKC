@@ -1,1 +1,1 @@
-chosen.jquery.js,chosen.css,chosen-init.js
+chosen.jquery.js,chosen.css

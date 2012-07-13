@@ -1001,3 +1001,5 @@ Copyright (c) 2011 by Harvest
   root.get_side_border_padding = get_side_border_padding;
 
 }).call(this);
+
+$(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true});
