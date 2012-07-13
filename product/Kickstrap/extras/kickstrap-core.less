@@ -2,9 +2,6 @@
 @importedJS: "<script class=\"extras\" type=\"text/javascript\">localStorage.clear();less.watch();consoleLog('Kickstrap: You are currently NOT caching your styles.', 'warn');</script>";
 script#caching {content: @importedJS;}
 
-// Bring in the main settings
-@import "../../settings.less";
-
 // Let's import bootstrap so we can begin overriding it.
 @import "../less/bootstrap.less";
 
@@ -390,6 +387,9 @@ footer#footer {
   
 //-----------------------
 //END BOOTSTRAP OVERRIDES
+
+// Bring in the main settings
+@import "../../settings.less";
 
 // Process add-ons from settings.
 #addOns {
