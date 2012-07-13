@@ -75,7 +75,7 @@
 			var contentString = stripslashes($('#addOns').css('content'));
 			
 			var addOnArray = contentString.splitCSV();
-			for (i=0;i<addOnArray.length;i++) {
+			for (i=0;i<addOnArray.length || function(){ consoleLog('All addons loaded'); return false;}();i++) {
 				
 				// Open the add-on's config file to see what we need to import.
 				getKsFile(addOnArray[i]);
@@ -108,14 +108,15 @@
 		
 		   // fire the loading
 		   head.appendChild(script);
-		}
+		};
 		
 		function pluginDepWriter(configArray, pluginName) {
 			// We don't need an array in an array.
 			configArray = configArray[0];	
+		
 			
 			// Split these into either the css or js array.
-			for (i = 0; i < configArray.length; i++) {
+			for(i = 0; i < configArray.length;i++){ // Run additional user code once finished.
 				var depName = String(configArray[i]);
 				var depSuffix = depName.substr(depName.length-3, depName.length);
 				var depSrc = rootDir + addOnLocation + pluginName + "/" + depName;
@@ -129,7 +130,16 @@
 					break;
 				}
 			}
+			
 		}
 		
+		(function($){  
+		 $.kickstrap = function(f,i) { // f = function, i = initiate 
+		 	$(window).load(function() {
+ 				var customFunction = f;
+ 				f(); 
+		 	}); 
+		 };  
+		})(jQuery);
 	}
 
