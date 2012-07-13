@@ -1,3 +1,7 @@
+// Allow the user to change the root directory to automatically fix the directory of all their plugins.
+var rootDir = "";	
+var addOnLocation;
+	
 	function clearCache() {
 		localStorage.clear() // My name sounds nicer. :)
 		console.log('Cache has been cleared. Reloading...');
@@ -10,12 +14,12 @@
 		}
 	}
 
-	function appendMagic(rootDir, newAppendee) {
+	function appendMagic(newRootDir, newAppendee) {
 	
 		// Variables
-		var addOnLocation = "Kickstrap/extras/";
-		if (!rootDir) {rootDir="";} // rootDir allows users to refer to js from sub directory html files. Assuming relative path if not specified.
-			
+		
+		if (newRootDir) {rootDir=newRootDir;} // rootDir allows users to refer to js from sub directory html files. Assuming relative path if not specified.
+		addOnLocation = rootDir + "Kickstrap/extras/";
 		// Functions we'll need later
 		function stripslashes(str) {
 			str = str.replace(/['"]/g,'');
@@ -75,7 +79,7 @@
 			var contentString = stripslashes($('#addOns').css('content'));
 			
 			var addOnArray = contentString.splitCSV();
-			for (i=0;i<addOnArray.length || function(){ consoleLog('All addons loaded'); return false;}();i++) {
+			for (i=0;i<addOnArray.length || function(){ consoleLog('All addons linked'); return false;}();i++) {
 				
 				// Open the add-on's config file to see what we need to import.
 				getKsFile(addOnArray[i]);
@@ -119,7 +123,7 @@
 			for(i = 0; i < configArray.length;i++){ // Run additional user code once finished.
 				var depName = String(configArray[i]);
 				var depSuffix = depName.substr(depName.length-3, depName.length);
-				var depSrc = rootDir + addOnLocation + pluginName + "/" + depName;
+				var depSrc = addOnLocation + pluginName + "/" + depName;
 				switch(depSuffix) {
 					case ".js":
 					loadScript(depSrc);
