@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE project>
-<project name="Boilerplate Build" default="build" basedir="../"><!-- one back since we're in build/ -->
+<project name="Boilerplate Build" default="build" basedir="../../"><!-- two back since we're in Kickstrap/build/ -->
     
     <!-- Load in Ant-Contrib to give us access to some very useful tasks! -->
     <!-- the .jar file is located in the tools directory -->
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
-            <pathelement location="${basedir}/build/tools/ant-contrib-1.0b3.jar"/>
+            <pathelement location="${basedir}/Kickstrap/build/tools/ant-contrib-1.0b3.jar"/>
         </classpath>
     </taskdef>
     
@@ -14,7 +14,7 @@
     <property environment="ENV" />
     
     <!-- load property files -->
-    <property file="build/config/project.properties"/><property file="build/config/default.properties"/>
+    <property file="build/config/project.properties"/><property file="${basedir}/Kickstrap/build/config/default.properties"/>
     
     <!-- merge the stylesheet properties -->
     <var name="stylesheet-files" value="${file.default.stylesheets}, ${file.stylesheets}"/>
@@ -694,7 +694,7 @@
     
     <target name="-css-remove-concatenated-stylesheets">
         <echo>Removing ${css_file} from html</echo>
-        <replaceregexp match="&lt;link.+href=&quot;.*${css_file}&quot;.*&gt;" replace="  " byline="true">
+        <replaceregexp match="&lt;link.+type=&quot;text/css&quot;.+href=&quot;.*$\{css_file\}&quot;.*&gt;" replace="  " byline="true">
             <fileset dir="${dir.intermediate}" includes="${page-files}"/>
         </replaceregexp>
     </target>
