@@ -109,7 +109,6 @@ var rootDir, addOnLocation;
 			
 		}
 		else {
-			document.write(formatAppendee($(newAppendee).css('content')));
 			function formatAppendee(str) {
 				str=str.replace(/\\'/g,'\'');
 				str=str.replace(/\\"/g,'"');
@@ -118,6 +117,7 @@ var rootDir, addOnLocation;
 				str=str.substring(1,str.length-1);
 				return str;
 			}
+			document.write(formatAppendee($(newAppendee).css('content')));
 		}
 		
 		function loadScript(url, callback) {
