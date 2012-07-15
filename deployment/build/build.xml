@@ -447,6 +447,11 @@
         </delete>
         <delete dir="${dir.publish}/${dir.less}"/>
         
+        <echo message="Copying root goodies to root"/>
+        <copy todir="${basedir}/${dir.publish}">
+			    <fileset dir="${basedir}/${dir.kickstrap}/extras/root goodies" excludes="whatisthis.txt"/>
+			  </copy>
+        
         <echo message="Deleting build folder from published folder"/>
         <delete dir="${dir.publish}/${dir.kickstrap}/build"/>
     </target>
@@ -456,8 +461,14 @@
         <echo message="Copying over all files..."/>
         <copy todir="./${dir.publish}">
             <fileset dir="${dir.source}/" excludes="${file.default.exclude}, ${file.exclude}"></fileset>
-        </copy>
+        </copy>  
         <echo message="A copy of all non-dev files are now in: ./${dir.publish}."/>
+        
+        <echo message="copying root goodies to root"/>
+			  <copy todir="${basedir}/${dir.publish}">
+			    <fileset dir="${basedir}/${dir.kickstrap}/extras/root goodies"/>
+			  </copy>
+        
     </target>
     
     <!-- JAVASCRIPT -->
@@ -821,7 +832,7 @@
 								</copy>
 								
 								<echo message="Turning your console off for production."/>
-								<replaceregexp file="${dir.intermediate}/settings.less" match="@import &quot;Kickstrap/extras/console" replace="//@import &quot;Kickstrap/extras/console" byline="true"/>
+								<replaceregexp file="${dir.intermediate}/settings.less" match="@import &quot;Kickstrap/boringstuff/console" replace="//@import &quot;Kickstrap/boringstuff/console" byline="true"/>
             
                 <echo message="Processing LESS CSS..."/>
                 <lessjs input="${dir.intermediate}/${dir.less}/style-concat.css" output="${dir.intermediate}/${dir.less}/style-concat.css" />
