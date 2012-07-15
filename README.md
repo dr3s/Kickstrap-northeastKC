@@ -1,7 +1,5 @@
 Version 0.99
 
-[These docs will be changed significantly. I hope to have them reflect the experimental branch by the end of July. Thank you for your patience.]
-
 The Gist
 ========
 
@@ -49,3 +47,37 @@ Besides notifying you of your website's status, you can also talk back. Here are
 
 To try any of these, just open the console on your Kickstrap website.
 
+Build Script
+============
+
+The build script is an awesome project originally part of HTML5 Boilerplate: https://github.com/h5bp/ant-build-script
+
+To use in Kickstrap, open a terminal and proceed with the following:
+<ol>
+  <li>Type "cd " (don't forget the space).</li>
+  <li>Drag the build folder into the terminal. You should now see the path copied in. Press enter.</li>
+  <li>Type "ant build" and press enter.</li>
+</ol>
+
+The ant build script may take a while on the first run. When it's finished, you should see a "public" folder in your root. This is what you should upload as your finished site.
+
+<strong>What does it do?</strong>
+
+The build script does a number of things. Here it is in order:
+<ol>
+  <li>Minifies your JS.</li>
+  <li>Concatenates minified JS into a single file.</li>
+  <li>Updates links in HTML to the new JS file.</li>
+  <li>Turns off Kickstrap's console-writing and console tools if left on.</li>
+  <li>Compiles all your LESS files to CSS.</li>
+  <li>Updates LESS link in HTML to link to new CSS file.</li>
+  <li>Removes less.js from HTML.</li>
+  <li>Removes html comments from files.</li>
+  <li>Optimizes images.</li>
+  <li>Deletes LESS files.</li>
+  <li>Copies root goodies to root.</li>
+  <li>Deletes build folder.</li>
+</ol>
+
+This is all done in the public folder, so none of your original files are changed.
+You'll end up with an expertly-crafted web structure for fast page speed, error-handling, and SEO optimization.
