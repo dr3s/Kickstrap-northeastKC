@@ -637,11 +637,12 @@
         <echo message=" - maintaining whitespace"/>
         <echo message=" - removing html comments"/>
         <echo message=" - compressing inline style/script tag contents"/>
+        <echo message= "${dir.intermediate}/" />
         <apply executable="java" parallel="false">
             <fileset dir="${dir.intermediate}/" includes="${page-files}"/>
             <arg value="-jar"/>
             <arg path="${dir.build.tools}/${tool.htmlcompressor}"/>
-            <arg line="${tool.htmlcompressor.opts} ${tool.htmlcompressor.javascript} ${tool.htmlcompressor.opts.extra}"/>
+            <arg line="${tool.htmlcompressor.opts}"/>
             <srcfile/>
             <arg value="-o"/>
             <mapper type="glob" from="*" to="${basedir}/${dir.publish}/*"/>
@@ -872,6 +873,7 @@
             <and>
                 <os family="unix" />
                 <available file="optipng" filepath="${ENV.PATH}" />
+                <available file="${basedir}/${dir.publish}/${dir.images}" type="dir"/>
             </and>
             <then>
                 <!-- work around https://sourceforge.net/tracker/?func=detail&aid=2671422&group_id=151404&atid=780916 -->
