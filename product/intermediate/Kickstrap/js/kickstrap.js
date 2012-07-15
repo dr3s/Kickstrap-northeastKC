@@ -1,6 +1,171 @@
-var rootDir,addOnLocation;(function(c){c.kickstrap=function(e){var e=c.extend({kickstrapIsHere:"/",thisFileIsHere:"/",customJS:function(){}},e),g=e.kickstrapIsHere;consoleLog("kickstrapIsHere is "+g);consoleLog("thisFileIsHere is "+rootDir);appendMagic(g);c(window).load(function(){var c=e.customJS;c()})}})(jQuery);function clearCache(){localStorage.clear();console.log("Cache has been cleared. Reloading...");location.reload(!0)}
-function consoleLog(c,e){typeof window.consoleLogger=="function"&&consoleLogger(c,e)}
-function appendMagic(c,e){function g(b){return b=b.replace(/['"]/g,"")}function k(b){b!=""&&(consoleLog('Loading add-on "'+b+'"'),$.ajax({type:"GET",url:addOnLocation+b+"/config.ks",dataType:"text",success:function(a){for(var a=a.split(/\r\n|\n/),d=a[0].split(","),f=[],c=0;c<a.length;c++){var e=a[c].split(",");if(e.length==d.length){for(var g=[],h=0;h<d.length;h++)g.push(e[h]);f.push(g)}}a=f[0];for(i=0;i<a.length;i++)switch(f=String(a[i]),d=f.substr(f.length-3,f.length),f=addOnLocation+b+"/"+f,d){case ".js":d=
-f;f=document.getElementsByTagName("body")[0];c=document.createElement("script");c.type="text/javascript";c.src=d;c.onreadystatechange=void 0;c.onload=void 0;f.appendChild(c);break;case "css":$("head").append('<link type="text/css" rel="stylesheet" href="'+f+'" />')}}}))}c&&(rootDir=c);addOnLocation=rootDir+"Kickstrap/extras/";String.prototype.splitCSV=function(b){for(var a=this.split(b=b||","),d=a.length-1,c;d>=0;d--)a[d]=a[d].replace(/ /g,""),a[d].replace(/"\s+$/,'"').charAt(a[d].length-1)=='"'?
-(c=a[d].replace(/^\s+"/,'"')).length>1&&c.charAt(0)=='"'?a[d]=a[d].replace(/^\s*"|"\s*$/g,"").replace(/""/g,'"'):d?a.splice(d-1,2,[a[d-1],a[d]].join(b)):a=a.shift().split(b).concat(a):a[d].replace(/""/g,'"');return a};if(e)document.write(function(b){b=b.replace(/\\'/g,"'");b=b.replace(/\\"/g,'"');b=b.replace(/\\0/g,"\x00");b=b.replace(/\\\\/g,"\\");return b=b.substring(1,b.length-1)}($(e).css("content")));else{document.write('<script id="console" type="text/javascript">appendMagic(null, \'#console\');<\/script><script id="caching" type="text/javascript">appendMagic(null, \'#caching\');<\/script><script id="console-tools" type="text/javascript">appendMagic(null, \'#console-tools\');<\/script>');
-var j=g($("#addOns").css("content")).splitCSV();for(i=0;i<j.length||function(){consoleLog("All addons linked");return!1}();i++)k(j[i])}};
+// Allow the user to change the root directory to automatically fix the directory of all their plugins.
+var rootDir, addOnLocation;
+
+	(function($){  
+	 $.kickstrap = function(options) { 
+	 
+		var defaults = {  
+			kickstrapIsHere: "/",
+			thisFileIsHere: "/",
+			customJS: function(){}
+	  };  
+	  var options = $.extend(defaults, options); 
+	  var ksDir = options.kickstrapIsHere;
+	  consoleLog('kickstrapIsHere is ' + ksDir);
+	  consoleLog('thisFileIsHere is ' + rootDir);
+	  
+	  appendMagic(ksDir);
+	  
+	  // Wait for all plugins to be loaded
+	 	$(window).load(function() {
+				var customFunction = options.customJS;
+				customFunction(); 
+	 	}); 
+	 };  
+	})(jQuery);
+	
+	function clearCache() {
+		localStorage.clear() // This is the part that actually clears the cache.
+		console.log('Cache has been cleared. Reloading...');
+		location.reload(true);
+	}
+	
+	function consoleLog(msg, msgType) { 
+		if(typeof window.consoleLogger == 'function') {
+			consoleLogger(msg, msgType);
+		}
+	}
+
+	function appendMagic(newRootDir, newAppendee) {
+	
+		// Variables
+		
+		if (newRootDir) {rootDir=newRootDir;} // rootDir allows users to refer to js from sub directory html files. Assuming relative path if not specified.
+		addOnLocation = rootDir + "Kickstrap/extras/";
+		// Functions we'll need later
+		function stripslashes(str) {
+			str = str.replace(/['"]/g,'');
+			return str;
+		}
+		function processKs(allText, pluginName) {
+	    var allTextLines = allText.split(/\r\n|\n/);
+	    var headers = allTextLines[0].split(',');
+	    var lines = [];
+	
+	    for (var i=0; i<allTextLines.length; i++) {
+	        var data = allTextLines[i].split(',');
+	        if (data.length == headers.length) {
+	
+	            var tarr = [];
+	            for (var j=0; j<headers.length; j++) {
+	                tarr.push(data[j]);
+	            }
+	            lines.push(tarr);
+	        }
+	    }
+	    pluginDepWriter(lines, pluginName);
+		}
+	  function getKsFile(pluginName) {
+	  	if(!(pluginName == "")) { //User may leave a trailing comma
+	  	  consoleLog('Loading add-on "' + pluginName + '"');
+		  	var ksURL = addOnLocation + pluginName + "/config.ks";
+				$.ajax({
+					type: "GET",
+					url: ksURL,
+					dataType: "text",
+					success: function(data) {processKs(data, pluginName);}
+				});
+			}
+	  }
+		// Modified version of CSV splitter thanks to http://www.greywyvern.com/?post=258
+		// Apparently this is not very IE compatible. http://stackoverflow.com/questions/5053292/javascript-how-to-create-global-functions-variables
+		String.prototype.splitCSV = function(sep) {
+		  for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
+		  	foo[x] = foo[x].replace(/ /g,''); // Modified to remove spaces from string too.
+			    if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {
+			      if ((tl = foo[x].replace(/^\s+"/, '"')).length > 1 && tl.charAt(0) == '"') {
+			        foo[x] = foo[x].replace(/^\s*"|"\s*$/g, '').replace(/""/g, '"');
+			      } else if (x) {
+			        foo.splice(x - 1, 2, [foo[x - 1], foo[x]].join(sep));
+			      } else foo = foo.shift().split(sep).concat(foo);
+			    } else foo[x].replace(/""/g, '"');
+		  } return foo;
+		};
+		
+		if (!newAppendee) {
+		
+			// Write the appendMagic script elements for console, console tools, etc.
+			document.write('<script id="console" type="text/javascript">appendMagic(null, \'#console\');</script><script id="caching" type="text/javascript">appendMagic(null, \'#caching\');</script><script id="console-tools" type="text/javascript">appendMagic(null, \'#console-tools\');</script>');
+		
+			// Get the formatted content string
+			var contentString = stripslashes($('#addOns').css('content'));
+			
+			var addOnArray = contentString.splitCSV();
+			for (i=0;i<addOnArray.length || function(){ consoleLog('All addons linked'); return false;}();i++) {
+				
+				// Open the add-on's config file to see what we need to import.
+				getKsFile(addOnArray[i]);
+			}
+			
+		}
+		else {
+			function formatAppendee(str) {
+				str=str.replace(/\\'/g,'\'');
+				str=str.replace(/\\"/g,'"');
+				str=str.replace(/\\0/g,'\0');
+				str=str.replace(/\\\\/g,'\\');
+				str=str.substring(1,str.length-1);
+				return str;
+			}
+			document.write(formatAppendee($(newAppendee).css('content')));
+		}
+		
+		function loadScript(url, callback) {
+		    // adding the script tag to the head as suggested before
+		   var head = document.getElementsByTagName('body')[0];
+		   var script = document.createElement('script');
+		   script.type = 'text/javascript';
+		   script.src = url;
+		
+		   // then bind the event to the callback function 
+		   // there are several events for cross browser compatibility
+		   script.onreadystatechange = callback;
+		   script.onload = callback;
+		
+		   // fire the loading
+		   head.appendChild(script);
+		};
+		
+		function pluginDepWriter(configArray, pluginName) {
+			// We don't need an array in an array.
+			configArray = configArray[0];	
+		
+			
+			// Split these into either the css or js array.
+			for(i = 0; i < configArray.length;i++){ // Run additional user code once finished.
+				var depName = String(configArray[i]);
+				var depSuffix = depName.substr(depName.length-3, depName.length);
+				var depSrc = addOnLocation + pluginName + "/" + depName;
+				switch(depSuffix) {
+					case ".js":
+					loadScript(depSrc);
+					break;
+					
+					case "css":
+					$('head').append('<link type="text/css" rel="stylesheet" href="'+ depSrc +'" />');
+					break;
+				}
+			}
+			
+		}
+		
+		/*(function($){  
+		 $.kickstrap = function(f,i) { // f = function, i = initiate 
+		 	$(window).load(function() {
+ 				var customFunction = f;
+ 				f(); 
+		 	}); 
+		 };  
+		})(jQuery);*/
+	}
+
