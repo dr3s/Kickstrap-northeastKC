@@ -446,6 +446,9 @@
             </fileset>
         </delete>
         <delete dir="${dir.publish}/${dir.less}"/>
+        
+        <echo message="Deleting build folder from published folder"/>
+        <delete dir="${dir.publish}/${dir.kickstrap}/build"/>
     </target>
     <target name="-copyall" depends="-mkdirs">
         <!-- This is a private target -->
