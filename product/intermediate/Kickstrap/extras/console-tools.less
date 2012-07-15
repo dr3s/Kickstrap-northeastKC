@@ -1,0 +1,4 @@
+// I make the console understand certain commands.
+
+@importedJS3: "<script>$.ajax({url: rootDir + 'Kickstrap/js/console-tools.js',context: document.body}).done(function() {console.log('called');});;</script>";
+script#console-tools {content: @importedJS3;}
