@@ -1,0 +1,15 @@
+.qunit-floating {
+	width: 800px;
+	margin-left: -400px;
+	position: absolute;
+	left: 50%;
+	top: 150px;
+  box-shadow: 0px 0px 10px black;
+  -webkit-box-shadow: 0px 0px 10px black;
+  -moz-box-shadow: 0px 0px 10px black;
+  -o-box-shadow: 0px 0px 10px black;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+}

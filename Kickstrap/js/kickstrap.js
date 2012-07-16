@@ -10,11 +10,9 @@ var rootDir, addOnLocation;
 			customJS: function(){}
 	  };  
 	  var options = $.extend(defaults, options); 
-	  var ksDir = options.kickstrapIsHere;
-	  consoleLog('kickstrapIsHere is ' + ksDir);
-	  consoleLog('thisFileIsHere is ' + rootDir);
+	  var rootDir = options.kickstrapIsHere;
 	  
-	  appendMagic(ksDir);
+	  appendMagic(rootDir);
 	  
 	  // Wait for all plugins to be loaded
 	 	$(window).load(function() {
