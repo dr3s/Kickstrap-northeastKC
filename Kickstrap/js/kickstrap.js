@@ -102,7 +102,13 @@ var rootDir, addOnLocation;
 			for (i=0;i<addOnArray.length || function(){ consoleLog('All addons linked'); return false;}();i++) {
 				
 				// Open the add-on's config file to see what we need to import.
-				getKsFile(addOnArray[i]);
+				// But first make sure it's not commented out.
+				if(addOnArray[i].substr(0, 2) == "//") {
+					consoleLog('Ignoring: ' + addOnArray[i].substr(2,(addOnArray[i].length)),'warn');
+				}
+				else {
+					getKsFile(addOnArray[i]);
+				}
 			}
 			
 		}
@@ -144,6 +150,7 @@ var rootDir, addOnLocation;
 				var depName = String(configArray[i]);
 				var depSuffix = depName.substr(depName.length-3, depName.length);
 				var depSrc = addOnLocation + pluginName + "/" + depName;
+
 				switch(depSuffix) {
 					case ".js":
 					loadScript(depSrc);
@@ -153,6 +160,7 @@ var rootDir, addOnLocation;
 					$('head').append('<link type="text/css" rel="stylesheet" href="'+ depSrc +'" />');
 					break;
 				}
+
 			}
 			
 		}
