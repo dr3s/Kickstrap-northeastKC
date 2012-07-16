@@ -79,6 +79,31 @@ a {color: @green;}
 .hero-unit {
 	background-color: transparent;
 	font-family: 'OstrichSansLight', Helvetica, sans-serif;
+	padding: 60px 0;
+	p {
+		font-size: 15px;
+		font-weight: normal;
+		line-height: 23px;
+		padding: 20px 35px;
+	}
+	h1 {
+		color: darken(@purple,10%);
+		font-size: 100px;
+		+ p {
+			background-color: black;
+			color: white;
+			+ p {
+				background-color: @purple;
+				color: white;
+				margin-top: -10px;
+				padding: 10px 35px;
+				text-transform: uppercase;
+				font-family: OstrichSansMedium;
+				font-size: 16pt;
+				text-align: center;
+			}
+		}
+	}
 }
 .well {
 	background-color: white;
@@ -95,11 +120,10 @@ a {color: @green;}
 	background-repeat:no-repeat;
 	background-position: left top;
 	box-shadow: 0px 0px 0px;
-	opacity: 0.75;
 	min-height: 50px;
 	padding-top: 10px;
 	a, p {
-		font-family: 'OstrichSansBlack';
+		font-family: 'OstrichSansBlack', Helvetica, sans-serif;
 		font-size: 13pt;
 	}
 }
@@ -120,5 +144,6 @@ a {color: @green;}
 	.brand {
 		color: @purple;
 		font-size: 20pt;
+		font-family: 'OstrichSansMedium', Helvetica, sans-serif;
 	}
 }
