@@ -9,7 +9,7 @@ Quick Start
 ===========
 
 1. Kickstrap is no-install and zero-config. Just download Kickstrap and open index.html from your server.
-(Must be run on a web server, either public or localhost. I recommend using MAMP and VirtualHostX)
+(Must be run at an http:// address; either public or localhost. I recommend using MAMP and VirtualHostX)
 
 Unlike earlier releases, Kickstrap 1.0 does not require a LESS compiler. In fact, <strong>it doesn't require anything</strong> provided you can host it on a server. Kickstrap uses a client side less.js file to compile your less files for the browser.
 If you'd rather use plain CSS, the included build script (requires Java) will do this for you. (More on that later).
