@@ -1,0 +1,6 @@
+// I help catch consoleLog() statements
+
+@importedJS2: "<script class=\"extras\" type=\"text/javascript\">function consoleLogger(msg, msgType) {var prefix = 'Kickstrap: '; switch(msgType) {case 'warn':console.warn(prefix + msg);break;case 'error':console.error(prefix + msg);break;default:console.log(prefix + msg);break;}}</script>";
+script#console {content: @importedJS2;}
+
+

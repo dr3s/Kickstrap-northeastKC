@@ -1,0 +1,124 @@
+// SANDRA THEME
+// ============
+// The default theme for Kickstrap
+
+// VARIABLES
+// ---------
+
+// The main color scheme. http://www.colourlovers.com/palette/2262407/Kickstrap
+@vanilla: 	#FFF2BF;
+@yellow:		#FADF77;
+@green:			#92AB5F;
+@blue: 			#669DB8;
+@purple:		#A06AAD;
+
+// SHORTCUTS
+
+.vanillatext 	{color: @vanilla}			.vanillabg 	{background-color: @vanilla;}
+.yellowtext 	{color: @yellow}			.yellowbg		{background-color: @yellow;}
+.greentext 		{color: @green}				.greenbg		{background-color: @green;}
+.bluetext 		{color: @blue}				.bluegbg		{background-color: @blue;}
+.purpletext 	{color: @purple}			.purplebg		{background-color: @purple;}
+
+// BASICS
+// ------
+
+body {
+	background-color: @blue;
+	background-image: url('Kickstrap/themes/sandra/confetti_girl.jpg');
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+// TYPOGRAPHY
+// ----------
+
+@font-face {
+    font-family: 'OstrichSansBlack';
+    src: url('Kickstrap/themes/sandra/ostrich-black-webfont.eot');
+    src: url('Kickstrap/themes/sandra/ostrich-black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Kickstrap/themes/sandra/ostrich-black-webfont.woff') format('woff'),
+         url('Kickstrap/themes/sandra/ostrich-black-webfont.ttf') format('truetype'),
+         url('Kickstrap/themes/sandra/ostrich-black-webfont.svg#OstrichSansBlack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OstrichSansLight';
+    src: url('Kickstrap/themes/sandra/ostrich-light-webfont.eot');
+    src: url('Kickstrap/themes/sandra/ostrich-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Kickstrap/themes/sandra/ostrich-light-webfont.woff') format('woff'),
+         url('Kickstrap/themes/sandra/ostrich-light-webfont.ttf') format('truetype'),
+         url('Kickstrap/themes/sandra/ostrich-light-webfont.svg#OstrichSansLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OstrichSansMedium';
+    src: url('Kickstrap/themes/sandra/ostrich-regular-webfont.eot');
+    src: url('Kickstrap/themes/sandra/ostrich-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Kickstrap/themes/sandra/ostrich-regular-webfont.woff') format('woff'),
+         url('Kickstrap/themes/sandra/ostrich-regular-webfont.ttf') format('truetype'),
+         url('Kickstrap/themes/sandra/ostrich-regular-webfont.svg#OstrichSansMedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+a, p {
+	font-family: helvetica;
+}
+a {color: @green;}
+
+// CONTAINERS
+// ----------
+
+.hero-unit {
+	background-color: transparent;
+	font-family: 'OstrichSansLight', Helvetica, sans-serif;
+}
+.well {
+	background-color: white;
+}
+
+// NAVIGATION
+// ----------
+
+.navbar-inner {
+	background-color: @yellow;
+	// #gradient > .vertical(lighten(@vanilla,10%), lighten(@vanilla,5%));
+	background-color: transparent;
+	background-image: url('Kickstrap/themes/sandra/black_slice.png');
+	background-repeat:no-repeat;
+	background-position: left top;
+	box-shadow: 0px 0px 0px;
+	opacity: 0.75;
+	min-height: 50px;
+	padding-top: 10px;
+	a, p {
+		font-family: 'OstrichSansBlack';
+		font-size: 13pt;
+	}
+}
+.nav-list > .active > a, .nav-list > .active > a:hover {
+	background-color: @green;
+}
+.navbar {
+	.nav {
+		.active > a, .navbar .nav .active > a:hover {
+			background-color: transparent;
+			border-bottom: 3px solid @purple;
+		}
+		> a {
+			color: @purple;
+			text-shadow: 0px;
+		}
+	}
+	.brand {
+		color: @purple;
+		font-size: 20pt;
+	}
+}
