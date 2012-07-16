@@ -1,5 +1,5 @@
 // Allow the user to change the root directory to automatically fix the directory of all their plugins.
-var rootDir, addOnLocation;
+var rootDir, addOnLocation, customFunction;
 
 	(function($){  
 	 $.kickstrap = function(options) { 
@@ -11,14 +11,8 @@ var rootDir, addOnLocation;
 	  };  
 	  var options = $.extend(defaults, options); 
 	  var rootDir = options.kickstrapIsHere;
-	  
+	  customFunction = options.customJS;
 	  appendMagic(rootDir);
-	  
-	  // Wait for all plugins to be loaded
-	 	$(window).load(function() {
-				var customFunction = options.customJS;
-				customFunction(); 
-	 	}); 
 	 };  
 	})(jQuery);
 	
@@ -93,13 +87,14 @@ var rootDir, addOnLocation;
 		if (!newAppendee) {
 		
 			// Write the appendMagic script elements for console, console tools, etc.
-			document.write('<script id="console" type="text/javascript">appendMagic(null, \'#console\');</script><script id="caching" type="text/javascript">appendMagic(null, \'#caching\');</script><script id="console-tools" type="text/javascript">appendMagic(null, \'#console-tools\');</script>');
+			document.write('<script id="console" type="text/javascript">appendMagic(null, \'#console\');</script><script id="caching" type="text/javascript">appendMagic(null, \'#caching\');</script>');
 		
 			// Get the formatted content string
 			var contentString = stripslashes($('#addOns').css('content'));
 			
 			var addOnArray = contentString.splitCSV();
-			for (i=0;i<addOnArray.length || function(){ consoleLog('All addons linked'); return false;}();i++) {
+			// Once all the addOns are loaded, fire the user's handmade javascript from $.kickstrap.
+			for (i=0;i<addOnArray.length || function(){ consoleLog('Add-on linking complete.'); customFunction(); return false;}();i++) {
 				
 				// Open the add-on's config file to see what we need to import.
 				// But first make sure it's not commented out.

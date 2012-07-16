@@ -1,1 +1,0 @@
-Root goodies are neato files that make your website work better. You can drag them into the root of your site or just let the build script do that for you.
