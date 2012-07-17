@@ -33,3 +33,5 @@ queue.txt
 .CVS
 .idea
 queue
+src/publish
+src/intermediate
