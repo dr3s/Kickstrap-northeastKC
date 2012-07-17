@@ -49,7 +49,20 @@ function checkVersion() {
 	})(jQuery);
 	
 	function clearCache() {
-		localStorage.clear() // This is the part that actually clears the cache.
+	
+		// Let's see if the browser has localStorage so
+		// this doesn't blow up.
+		var hasStorage = (function() {
+      try {
+        localStorage.setItem(mod, mod);
+        localStorage.removeItem(mod);
+        return true;
+      } catch(e) {
+        return false;
+      }
+    }());
+	
+		if(hasStorage) {localStorage.clear()}; // This is the part that actually clears the cache.
 		console.log('Cache has been cleared. Reloading...');
 		location.reload(true);
 	}

@@ -6,7 +6,20 @@ var poorSoul = false;
 // Some functions we'll need later and consistently.
 
 function clearCache() {
-	localStorage.clear() // This is the part that actually clears the cache.
+
+	// Let's see if the browser has localStorage so
+	// this doesn't blow up.
+	var hasStorage = (function() {
+    try {
+      localStorage.setItem(mod, mod);
+      localStorage.removeItem(mod);
+      return true;
+    } catch(e) {
+      return false;
+    }
+  }());
+
+	if(hasStorage) {localStorage.clear()}; // This is the part that actually clears the cache.
 	console.log('Cache has been cleared. Reloading...');
 	location.reload(true);
 }
@@ -202,6 +215,7 @@ full add-on location for linking our fun add-ons.
 		=====================================================*/
 		
 	  function getKsFile(pluginName) {
+	    consoleLog('Loading add-on ' + pluginName);
 	  	if(!(pluginName == "")) { //User may leave a trailing comma
 		  	var ksURL = addOnLocation + pluginName + "/config.ks";
 				$.ajax({
@@ -241,6 +255,7 @@ full add-on location for linking our fun add-ons.
 		Here's the part where we actually start writing the dependencies
 		to the DOM.
 		=====================================================*/
+		
 		function pluginDepWriter(configArray, pluginName) {
 			// For now, we just look at the first line of this doc.
 			configArray = configArray[0];	

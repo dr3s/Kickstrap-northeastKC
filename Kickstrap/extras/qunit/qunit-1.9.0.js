@@ -8,6 +8,7 @@
  * or GPL (GPL-LICENSE.txt) licenses.
  */
 
+
 (function( window ) {
 
 var QUnit,
@@ -1930,3 +1931,9 @@ if ( typeof exports !== "undefined" ) {
 
 // get at whatever the global object is, like window in browsers
 }( (function() {return this;}.call()) ));
+
+if(typeof window.myFunction == 'beginTest') {
+// function exists, so we can now call it
+QUnit.begin(beginTest());
+}
+
