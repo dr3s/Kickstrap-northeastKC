@@ -215,7 +215,7 @@ full add-on location for linking our fun add-ons.
 		=====================================================*/
 		
 	  function getKsFile(pluginName) {
-	    consoleLog('Loading add-on ' + pluginName);
+	    consoleLog('Loading: ' + pluginName);
 	  	if(!(pluginName == "")) { //User may leave a trailing comma
 		  	var ksURL = addOnLocation + pluginName + "/config.ks";
 				$.ajax({

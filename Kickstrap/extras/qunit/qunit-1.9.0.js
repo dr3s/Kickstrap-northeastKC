@@ -1932,8 +1932,9 @@ if ( typeof exports !== "undefined" ) {
 // get at whatever the global object is, like window in browsers
 }( (function() {return this;}.call()) ));
 
-if(typeof window.myFunction == 'beginTest') {
-// function exists, so we can now call it
-QUnit.begin(beginTest());
-}
+// Makes sure the tests start only when ready. 
+// To write tests at the document level, just override this function.
+QUnit.begin(function() {
+	beginTest();
+});
 
