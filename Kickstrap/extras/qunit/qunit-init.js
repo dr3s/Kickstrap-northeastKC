@@ -1,4 +1,4 @@
-$('body').append('<div id="qunit" class="qunit-floating"></div><div id="qunit-fixture""></div>');
+$('body').append('<div id="qunit" class="qunit-floating">QUNIT</div><div id="qunit-fixture""></div>');
 QUnit.begin(function() {
 	if(typeof window.test == 'function') {
 	// function exists, so we can now call it
@@ -8,5 +8,3 @@ QUnit.begin(function() {
 		consoleLog('Could not load tests.');
 	}
 });
-
-
